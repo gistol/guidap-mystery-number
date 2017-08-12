@@ -1,0 +1,27 @@
+{
+  "name": "guidap-mystery-number",
+  "version": "1.0.0",
+  "description": "Guess the number app for Guidap tech test (symfony 3, Vue.js 2)",
+  "scripts": {
+    "start": "encore dev-server --hot",
+    "build-dev": "encore dev",
+    "build-prod": "encore production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abbraxar/guidap-mystery-number.git"
+  },
+  "author": "Alix Mauro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Abbraxar/guidap-mystery-number/issues"
+  },
+  "homepage": "https://github.com/Abbraxar/guidap-mystery-number#readme",
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.13.0",
+    "vue": "^2.4.2",
+    "vue-loader": "^13.0.4",
+    "vue-template-compiler": "^2.4.2"
+  }
+}
