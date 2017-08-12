@@ -2,7 +2,7 @@
 
 namespace AppBundle\Service;
 
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * This service hold an integer value and check user input against it.
@@ -27,7 +27,7 @@ class MysteryNumberService
     /** @var int Mystery number to guess */
     private $mysteryNumber = null;
 
-    public function __construct(Session $session)
+    public function __construct(SessionInterface $session)
     {
         $this->session = $session;
         $this->mysteryNumber = $this->getMysteryNumberFromStorage();
@@ -40,12 +40,12 @@ class MysteryNumberService
      */
     public function play($guess)
     {
-        if (!is_integer($guess)) {
-            throw new \Exception('Error parameter must be an integer.', 1);
-        }
-
         if (is_null($this->mysteryNumber)) {
             $this->setNewMysteryNumber();
+        }
+
+        if (!is_integer($guess)) {
+            throw new \Exception('Error parameter must be an integer.', 1);
         }
 
         if ($this->mysteryNumber < $guess) {
