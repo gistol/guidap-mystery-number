@@ -55,6 +55,6 @@ class MysteryNumberService
      */
     private function generateNumber()
     {
-        return rand(MysteryNumberService::MIN_NUMBER, MysteryNumberService::MAX_NUMBER);
+        return mt_rand(MysteryNumberService::MIN_NUMBER, MysteryNumberService::MAX_NUMBER);
     }
 }
