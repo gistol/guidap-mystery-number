@@ -27,8 +27,9 @@ class MysteryNumberController extends Controller
 
         $guess = $request->query->getInt('guess', -1);
 
-        if ($guess < 0 || $guess > 100) {
-            throw new BadRequestHttpException("Parameter 'guess' is mandatory and must be an integer betwen 0 and 100.");
+        if ($guess < MysteryNumberService::MIN_NUMBER || $guess > MysteryNumberService::MAX_NUMBER) {
+            throw new BadRequestHttpException(
+                "Parameter 'guess' is mandatory and must be an integer betwen ".MysteryNumberService::MIN_NUMBER." and ".MysteryNumberService::MAX_NUMBER.".");
         }
 
         $result = $mysteryNumberService->play(intval($guess, 10));
