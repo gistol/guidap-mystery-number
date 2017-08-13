@@ -17,3 +17,6 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+
+    # This value will be tested against http_referer to restrict API calls to the provided values
+    trusted_client_referers: [http://localhost:8000/]
