@@ -13,7 +13,7 @@ Guess the number app for Guidap tech test (symfony 3, Vue.js 2)
 1. Set the trusted_client_referers paramter in `app/config/parameters.yml`. It's an array of authorized referers.
 1. npm install
 1. npm run build-dev OR build-prod to test prod setup
-1. php bin/console server:run OR use your prefered server to test prod setup
+1. php bin/console server:run OR use your prefered server to test prod setup. In this case, remember to add the app adress to the trusted_client_referers array or the client will be rejected by the server API.
 
 ## Building blocks
 * A simple vue application in `/web/assets` built with webpack-encore;
