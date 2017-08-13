@@ -25,9 +25,13 @@ class MysteryNumberController extends Controller
             throw new AccessDeniedHttpException("Only trusted clients are allowed to use this API.");
         }
 
-        $guess = $request->query->getInt('guess', -1);
+        $guess = $request->query->get('guess', null);
 
-        if ($guess < MysteryNumberService::MIN_NUMBER || $guess > MysteryNumberService::MAX_NUMBER) {
+        if (is_null($guess) ||
+            !$this->whole_int($guess) ||
+            $guess < MysteryNumberService::MIN_NUMBER ||
+            $guess > MysteryNumberService::MAX_NUMBER) {
+
             throw new BadRequestHttpException(
                 "Parameter 'guess' is mandatory and must be an integer betwen ".MysteryNumberService::MIN_NUMBER." and ".MysteryNumberService::MAX_NUMBER.".");
         }
@@ -35,5 +39,21 @@ class MysteryNumberController extends Controller
         $result = $mysteryNumberService->play(intval($guess, 10));
 
         return $this->json([ 'success' => true, 'data' => $result ]);
+    }
+
+    private function whole_int($val)
+    {
+        $val = strval($val);
+        $val = str_replace('-', '', $val);
+
+        if (ctype_digit($val))
+        {
+            if ($val === (string)0)
+                return true;
+            elseif(ltrim($val, '0') === $val)
+                return true;
+        }
+
+        return false;
     }
 }
