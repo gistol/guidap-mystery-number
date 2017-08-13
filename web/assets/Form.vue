@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <input type="number" name="guess" v-model="guess" :min="min" :max="max" required>
+    <input type="number" name="guess" v-model.number="guess" :min="min" :max="max" required>
     <button type="button" @click="plus">+</button>
     <button type="button" @click="minus">-</button>
     <input type="submit" value="Send">
@@ -28,8 +28,10 @@
       onSubmit: function () {
         if (!Number.isInteger(this.guess)) { return; }
 
-        this.$http.get('/api/mystery', { params: { guess: this.guess } }).then(response => {
-          this.$emit('response', response.data);
+        // copy guess value to be sure to have the good value on callback
+        let guessValue = this.guess;
+        this.$http.get('/api/mystery', { params: { guess: guessValue } }).then(response => {
+          this.$emit('play-response', { input: guessValue, response: response.data.data });
         }, response => {
           console.error(response);
         });
