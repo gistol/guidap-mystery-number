@@ -15,5 +15,6 @@
 /vendor/
 /web/build
 /web/bundles/
+/web/userGuesses.txt
 /node_modules
 /npm-debug.log
