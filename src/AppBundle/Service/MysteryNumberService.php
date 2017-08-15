@@ -32,6 +32,7 @@ class MysteryNumberService extends Controller
     /** @var int Mystery number to guess */
     private $mysteryNumber = null;
 
+    /** Constructor */
     public function __construct(SessionInterface $session, EventDispatcherInterface $dispatcher)
     {
         $this->session = $session;
@@ -47,7 +48,7 @@ class MysteryNumberService extends Controller
     public function play($guess)
     {
         if (!is_integer($guess)) {
-            throw new \Exception('Error parameter must be an integer.', 1);
+            throw new \Exception('Parameter 1 must be an integer.', 1);
         }
 
         if (is_null($this->mysteryNumber)) {
@@ -68,6 +69,37 @@ class MysteryNumberService extends Controller
         return MysteryNumberService::RETURNS['Equal'];
     }
 
+    /** MysteryNumber getter. */
+    public function getMysteryNumber() { return $this->mysteryNumber; }
+
+    /** MysteryNumber setter. */
+    public function setMysteryNumber($number)
+    {
+        if (!is_integer($number) && !is_null($number)) {
+            throw new \Exception('Mystery number must be an integer or null.', 1);
+        }
+
+        $this->mysteryNumber = $number;
+        $this->persistMysteryNumber($number);
+    }
+
+    /**
+     * Set mystery number to null.
+     */
+    public function clearMysteryNumber()
+    {
+        $this->setMysteryNumber(null);
+    }
+
+    /**
+     * Regenerate the mystery number.
+     */
+    public function setNewMysteryNumber()
+    {
+        $number = $this->generateRandomNumber();
+        $this->setMysteryNumber($number);
+    }
+
     /**
      * Dispatch a play event.
      * @param int $guess Player provided value.
@@ -84,25 +116,6 @@ class MysteryNumberService extends Controller
     private function generateRandomNumber()
     {
         return mt_rand(MysteryNumberService::MIN_NUMBER, MysteryNumberService::MAX_NUMBER);
-    }
-
-    /**
-     * Set mystery number to null.
-     */
-    private function clearMysteryNumber()
-    {
-        $this->mysteryNumber = null;
-        $this->persistMysteryNumber();
-    }
-
-    /**
-     * Regenerate the mystery number.
-     */
-    private function setNewMysteryNumber()
-    {
-        $number = $this->generateRandomNumber();
-        $this->mysteryNumber = $number;
-        $this->persistMysteryNumber();
     }
 
     /**

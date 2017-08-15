@@ -33,6 +33,10 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    mystery-number:
+        class: AppBundle\Service\MysteryNumberService
+        public: true
+
     app.play_listener:
         class: AppBundle\EventListener\PlayListener
         tags:
