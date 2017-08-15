@@ -1,10 +1,13 @@
 # guidap-mystery-number
 Guess the number app for Guidap tech test (symfony 3, Vue.js 2)
 
+@update 2017-08-15: Some server test have been added (we discussed tests in interview).
+
 ## Pre requisites
 * PHP 7.1
 * Composer
 * npm
+* phpunit
 
 ## Installation
 1. Clone the repo
@@ -23,3 +26,4 @@ Guess the number app for Guidap tech test (symfony 3, Vue.js 2)
   * An app controller which serve the base html and the vue application;
   * A play event fired when a number is tested against the mystery number;
   * A play listener which log tested number into a file;
+  * Tests for service and controllers;
